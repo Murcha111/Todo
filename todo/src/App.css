@@ -1,0 +1,63 @@
+.wrapper {
+  background-color: rgb(5, 5, 5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+.input {
+  box-sizing: border-box;
+  height: 40px;
+  width: 270px;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid rgb(245, 136, 187);
+  background: none;
+  color: rgb(241, 170, 203);
+  font-size: large;
+  outline: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.btn_create {
+  height: 40px;
+  margin-left: 20px;
+  background-color: rgb(245, 136, 187);
+  font-size: medium;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.btn_create:hover {
+  background: whitesmoke;
+  color: black;
+  cursor: pointer;
+}
+
+.todo_item {
+  position: absolute;
+  cursor: move;
+  min-width: 220px;
+  max-width: 300px;
+  word-wrap: break-word;
+  color: rgb(44, 37, 37);
+  padding: 5px;
+  min-height: 50px;
+  border-radius: 7px;
+  text-align: center;
+}
+.del  {
+ 
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+  right: 10px;
+}
+.updateButton{
+  position: absolute;
+  margin-left: 5px;
+  right: 45px;
+}
