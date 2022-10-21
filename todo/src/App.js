@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
 import { randomColor } from "randomcolor";
 import Draggable from "react-draggable";
 
 function App() {
+  const editInputRef = useRef(null)
+  const [edit, setEdit] = useState(null);
   const [value, setValue] = useState("");
+  const [editValue, setEditValue] = useState("");
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem("items")) || [] //получаем из локалсторадж items
   );
 
- const [editedValue, setEditedValue] = useState('')
+
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items)); //помещаем элементы в локалсторадж
-    
+
     return () => {
       localStorage.clear();
     };
@@ -23,7 +26,7 @@ function App() {
     if (value.trim() !== "") {
       const newItem = {
         id: uuidv4(),
-        item: value,
+        value: value,
         color: randomColor({
           luminosity: "light",
         }),
@@ -46,23 +49,44 @@ function App() {
     newArr[index].positionDefault = { x: data.x, y: data.y }; //присваемваем новые координаты для item
     setItems(newArr);
   };
+
   const deleteItem = (id) => {
     setItems((items) => {
       return items.filter((el) => el.id !== id);
     });
   };
 
+  //!срабатывание по нажатию на ENTER(13) и пробел(32)
   const keyDownEnter = (event) => {
-   
-  if(event.keyCode === 13 || event.keyCode === 32){
-    createNewItem()
-    event.stopPropagation();
-  }
+    if (event.keyCode === 13 || event.keyCode === 32) {
+      createNewItem()
+      
+      event.stopPropagation();
+    }
   };
 
-  // const editItem = (id) => {
+  const editItem = (id, title) => {
+    setEditValue(title);
+    setEdit(id);
+  };
 
-  // }
+ const saveItem = (id, title) => {
+ const newItems = [...items].map(el => {
+  if(el.id == id){ 
+    el.value = editValue}
+    return el
+  
+ })
+   setItems(newItems)//обновленный список
+   setEdit(null)//установим флаг на начал положение
+ }
+
+//функция установки фокуса на элементе после обновления зависимостей
+ useEffect(()=> {
+  if(edit ){
+    editInputRef.current.focus()
+  }
+ }, [edit])
 
   return (
     <div className="App">
@@ -78,8 +102,9 @@ function App() {
         <button className="btn_create" onClick={createNewItem}>
           добавить
         </button>
-      </div>
     
+      </div>
+
       {items.map((item, index) => {
         return (
           <Draggable
@@ -90,13 +115,57 @@ function App() {
             defaultPosition={item.positionDefault}
           >
             <div style={{ backgroundColor: item.color }} className="todo_item">
-              {`${item.item}`}
-              <button onClick={() => deleteItem(item.id)} className="del">
-              ❌
-              </button>
-              <button onClick={() => editItem(item.id)} className="updateButton" >
-              🖍
-              </button>
+              {
+                edit == item.id ? 
+                <input
+                ref={editInputRef}
+                onChange={(event) => setEditValue(event.target.value)}
+                value={editValue}
+              /> :
+                <>
+                 {item.value}
+                 </>
+               
+              }
+              {edit == item.id ? (
+                <>
+                  {/* <input
+                    onChange={(event) => setEditValue(event.target.value)}
+                    value={editValue}
+                  /> */}
+                  <button
+                    className="saveButton"
+                    onClick={() => {
+                      saveItem(item.id, item.value);
+                     
+                    }}
+                  >
+                    save
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* {item.value} */}
+                  <button
+                    onClick={() => {
+                      if (confirm("Точно???")) {
+                        deleteItem(item.id);
+                      }
+                    }}
+                    className="del"
+                  >
+                    ❌
+                  </button>
+                  <button
+                    onClick={() => {
+                      editItem(item.id, item.value);
+                    }}
+                    className="updateButton"
+                  >
+                    🖍
+                  </button>
+                </>
+              )}
             </div>
           </Draggable>
         );
