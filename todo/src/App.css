@@ -93,10 +93,30 @@ body {
   border-radius: 100%;
   border: 3px solid red;
   position: relative;
+  /* bottom: 600px;
+  left: 500px; */
   float: left;
 }
 
 .y-2 {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background: red;
+  position: absolute;
+  left: 70px;
+  bottom: 35px;
+}
+.y-3 {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: 3px solid red;
+  position: relative;
+  float: left;
+}
+
+.y-4 {
   width: 30px;
   height: 30px;
   border-radius: 100%;

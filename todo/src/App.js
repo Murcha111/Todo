@@ -90,6 +90,12 @@ function App() {
 
   return (
     <div className="App">
+      <div className="y-1">
+        <div className="y-2"></div>
+      </div>
+      <div className="y-3">
+        <div className="y-4"></div>
+      </div>
       <div className="wrapper">
         <input
           onKeyDown={keyDownEnter}
@@ -103,9 +109,8 @@ function App() {
           ДОБАВИТЬ
         </button>
       </div>
-      {/* <div className="y-1">
-        <div className="y-2"></div>
-      </div> */}
+
+      
 
       {items.map((item, index) => {
         return (
