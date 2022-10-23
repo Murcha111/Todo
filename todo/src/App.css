@@ -1,5 +1,11 @@
+body {
+  background-color: rgb(39, 36, 36);
+}
+@font-face {
+  font-family: "Jolly Lodger";
+  src: url("./fonts/21026.otf") format("truetype");
+}
 .wrapper {
-  background-color: rgb(5, 5, 5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +15,7 @@
 .input {
   box-sizing: border-box;
   height: 40px;
-  width: 270px;
+  width: 370px;
   padding: 5px;
   border: none;
   border-bottom: 1px solid rgb(245, 136, 187);
@@ -17,20 +23,38 @@
   color: rgb(241, 170, 203);
   font-size: large;
   outline: none;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.inputEdit {
+  font-size: 40px;
+  background: none;
+  box-sizing: border-box;
+  height: 40px;
+  width: 270px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(245, 136, 187);
+  font-family: "Jolly Lodger";
 }
 .btn_create {
-  height: 40px;
+  padding: 12px;
   margin-left: 20px;
   background-color: rgb(245, 136, 187);
   font-size: medium;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 700;
+  font-family: "Jolly Lodger";
+  font-size: 25px;
+  font-weight: 400;
   border-radius: 8px;
 }
-
+.btnBox {
+  position: relative;
+  display: flex;
+  width: 70px;
+  height: 130px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+}
 .btn_create:hover {
   background: whitesmoke;
   color: black;
@@ -40,24 +64,44 @@
 .todo_item {
   position: absolute;
   cursor: move;
-  min-width: 220px;
-  max-width: 300px;
+  min-width: 320px;
+  max-width: 400px;
   word-wrap: break-word;
   color: rgb(44, 37, 37);
   padding: 5px;
-  min-height: 50px;
-  border-radius: 7px;
+  min-height: 150px;
+  border-radius: 15px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Jolly Lodger;
+  font-size: 40px;
 }
-.del  {
- 
-  position: absolute;
+
+.textItemBlock {
+  padding-left: 30px;
+}
+
+.del {
   background-color: rgb(255, 255, 255);
   border-radius: 4px;
-  right: 10px;
 }
-.updateButton{
+.y-1 {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: 3px solid red;
+  position: relative;
+  float: left;
+}
+
+.y-2 {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background: red;
   position: absolute;
-  margin-left: 5px;
-  right: 45px;
+  left: 70px;
+  bottom: 35px;
 }
