@@ -3,16 +3,16 @@ import "./App.css";
 import { v4 as uuidv4 } from "uuid";
 import { randomColor } from "randomcolor";
 import Draggable from "react-draggable";
+import EyeBall from "./components/EYE/EyeBall";
 
 function App() {
-  const editInputRef = useRef(null)
+  const editInputRef = useRef(null);
   const [edit, setEdit] = useState(null);
   const [value, setValue] = useState("");
   const [editValue, setEditValue] = useState("");
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem("items")) || [] //получаем из локалсторадж items
   );
-
 
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items)); //помещаем элементы в локалсторадж
@@ -58,9 +58,9 @@ function App() {
 
   //!срабатывание по нажатию на ENTER(13) и пробел(32)
   const keyDownEnter = (event) => {
-    if (event.keyCode === 13 || event.keyCode === 32) {
-      createNewItem()
-      
+    if (event.keyCode === 13) {
+      createNewItem();
+
       event.stopPropagation();
     }
   };
@@ -70,26 +70,32 @@ function App() {
     setEdit(id);
   };
 
- const saveItem = (id, title) => {
- const newItems = [...items].map(el => {
-  if(el.id == id){ 
-    el.value = editValue}
-    return el
-  
- })
-   setItems(newItems)//обновленный список
-   setEdit(null)//установим флаг на начал положение
- }
+  const saveItem = (id, title) => {
+    const newItems = [...items].map((el) => {
+      if (el.id == id) {
+        el.value = editValue;
+      }
+      return el;
+    });
+    setItems(newItems); //обновленный список
+    setEdit(null); //установим флаг на начал положение
+  };
 
-//функция установки фокуса на элементе после обновления зависимостей
- useEffect(()=> {
-  if(edit ){
-    editInputRef.current.focus()
-  }
- }, [edit])
+  //функция установки фокуса на элементе после обновления зависимостей
+  useEffect(() => {
+    if (edit) {
+      editInputRef.current.focus();
+    }
+  }, [edit]);
 
   return (
     <div className="App">
+      <div className="y-1">
+        <div className="y-2"></div>
+      </div>
+      <div className="y-3">
+        <div className="y-4"></div>
+      </div>
       <div className="wrapper">
         <input
           onKeyDown={keyDownEnter}
@@ -100,10 +106,11 @@ function App() {
           placeholder="что-нибудь сюда..."
         ></input>
         <button className="btn_create" onClick={createNewItem}>
-          добавить
+          ДОБАВИТЬ
         </button>
-    
       </div>
+
+      
 
       {items.map((item, index) => {
         return (
@@ -115,61 +122,60 @@ function App() {
             defaultPosition={item.positionDefault}
           >
             <div style={{ backgroundColor: item.color }} className="todo_item">
-              {
-                edit == item.id ? 
+              {edit == item.id ? (
                 <input
-                ref={editInputRef}
-                onChange={(event) => setEditValue(event.target.value)}
-                value={editValue}
-              /> :
+                  className="inputEdit"
+                  ref={editInputRef}
+                  onChange={(event) => setEditValue(event.target.value)}
+                  value={editValue}
+                />
+              ) : (
                 <>
-                 {item.value}
-                 </>
-               
-              }
+                  <div className="textItemBlock">{item.value}</div>
+                </>
+              )}
               {edit == item.id ? (
                 <>
-                  {/* <input
-                    onChange={(event) => setEditValue(event.target.value)}
-                    value={editValue}
-                  /> */}
                   <button
-                    className="saveButton"
+                    className="btn_create"
                     onClick={() => {
                       saveItem(item.id, item.value);
-                     
                     }}
                   >
                     save
                   </button>
                 </>
               ) : (
-                <>
-                  {/* {item.value} */}
+                <div className="btnBox">
                   <button
                     onClick={() => {
                       if (confirm("Точно???")) {
                         deleteItem(item.id);
                       }
                     }}
-                    className="del"
+                    className="btn_create"
                   >
                     ❌
                   </button>
+
                   <button
                     onClick={() => {
                       editItem(item.id, item.value);
                     }}
-                    className="updateButton"
+                    className="btn_create"
                   >
                     🖍
                   </button>
-                </>
+                </div>
               )}
             </div>
           </Draggable>
         );
       })}
+
+      <div className="eyeBlock">
+        <EyeBall />
+      </div>
     </div>
   );
 }
